@@ -20,5 +20,11 @@
   "license": "MIT",
   "devDependencies": {
     "coffee-script": "^1.7.1"
+  },
+  "dependencies": {
+    "express": "^4.4.3",
+    "panel-bridge-client": "0.0.2",
+    "panel-static": "^1.0.0",
+    "ws": "^0.4.31"
   }
 }
