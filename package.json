@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "express": "^4.4.3",
-    "panel-bridge-client": "0.0.2",
+    "panel-bridge-client": "^0.1.0",
     "panel-static": "^1.0.0",
     "ws": "^0.4.31"
   }
