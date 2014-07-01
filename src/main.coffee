@@ -12,6 +12,8 @@ class PhotoshopBridge extends EventEmitter
     @express = express
     @app = @express()
 
+    @debugging = false
+
     server = http.createServer(@app)
     server.listen(@pkg.panel.port)
 
@@ -66,9 +68,23 @@ class PhotoshopBridge extends EventEmitter
       switch e.type
         when 'pair' then @handlePairing(e.params)
         when 'server-event', 'global-event' then @handlePanelEvent(e.name, e.params)
+        when 'debug' then @startDebugging()
 
   handlePairing: (params) ->
     # ignored in Photoshop
+
+  startDebugging: () ->
+    return if @debugging
+    @debugging = true
+
+    esteWatch = require 'este-watch'
+    staticDir = @pkg.panel.static
+
+    watcher = esteWatch [staticDir], (e) =>
+      e.filepath = e.filepath.replace staticDir, ''
+      @emit 'reload', e, 'debug'
+
+    watcher.start()
 
   resolveEventQueue: ->
     @ws.broadcast(e) for e in @eventQueue
