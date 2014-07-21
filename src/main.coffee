@@ -26,6 +26,9 @@ class PhotoshopBridge extends EventEmitter
       res.header 'Content-Type', 'application/javascript'
       res.sendfile bridgePath
 
+    @app.get '/_panels/ping', (req, res) ->
+      res.jsonp 'pong'
+
     # rest fallback to send events
     @app.get '/_panels/emit-event', (req, res) =>
       query = req.query
