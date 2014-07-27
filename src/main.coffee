@@ -1,8 +1,15 @@
+fs = require 'fs'
 express = require 'express'
 WebSocketServer = require('ws').Server
 {EventEmitter} = require 'events'
 http = require 'http'
 panelStatic = require 'panel-static'
+color = require 'bash-color'
+
+err = (msg) ->
+  console.log ''
+  console.log "#{color.red('[panel-photoshop-bridge]')} #{msg}"
+  console.log ''
 
 EventEmitter.prototype._emit = EventEmitter.prototype.emit
 
@@ -14,11 +21,14 @@ class PhotoshopBridge extends EventEmitter
 
     @debugging = false
 
+    # static files of panel that will be loaded in extension
+    unless fs.existsSync(@pkg.panel.static)
+      err "Static folder (#{@pkg.panel.static}) not found. Haven't you forgot to link it?"
+    else
+      @app.use(panelStatic(@pkg.panel.static))
+
     server = http.createServer(@app)
     server.listen(@pkg.panel.port)
-
-    # static files of panel that will be loaded in extension
-    @app.use(panelStatic(@pkg.panel.static))
 
     # client js library to connect
     bridgePath = require.resolve('panel-bridge-client')
