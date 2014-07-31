@@ -21,14 +21,24 @@ class PhotoshopBridge extends EventEmitter
 
     @debugging = false
 
+    @app.get '/', (req, res) =>
+      res.send """
+        <meta charset="utf-8">
+        <style>*{font-family:sans-serif;color:#333}body{width:500px;margin:100px auto 0}p{line-height:27px;font-size:14px}h1{font-size:25px}</style>
+        <h1>#{@pkg.panel.title} Photoshop Plugin</h1>
+        <p>Hey, this is an internal server that powers your #{@pkg.panel.title} Photoshop Plugin.</p>
+        <p>It works only when your Photoshop is running, it doesn't allow any external connections from network and it has almost zero impact on Photoshop performance. You don't really need to worry about it, it should just work.</p>
+        <p><small>If you are more of a techie, let's open <a href="/panel/?platform=chrome">/panel/</a> in your browser and see the magic :)</small></p>
+      """
+
     # static files of panel that will be loaded in extension
     unless fs.existsSync(@pkg.panel.static)
       err "Static folder (#{@pkg.panel.static}) not found. Haven't you forgot to link it?"
     else
-      @app.use(panelStatic(@pkg.panel.static))
+      @app.use('/panel', panelStatic(@pkg.panel.static))
 
     server = http.createServer(@app)
-    server.listen(@pkg.panel.port)
+    server.listen(@pkg.panel.port, '127.0.0.1')
 
     # client js library to connect
     bridgePath = require.resolve('panel-bridge-client')
