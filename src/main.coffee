@@ -5,6 +5,7 @@ WebSocketServer = require('ws').Server
 http = require 'http'
 panelStatic = require 'panel-static'
 color = require 'bash-color'
+bodyParser = require 'body-parser'
 
 err = (msg) ->
   console.log ''
@@ -18,6 +19,8 @@ class PhotoshopBridge extends EventEmitter
   constructor: ({@pkg, @generator}={}) ->
     @express = express
     @app = @express()
+
+    @app.use bodyParser.json()
 
     @debugging = false
 

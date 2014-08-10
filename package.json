@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "bash-color": "0.0.3",
+    "body-parser": "^1.6.2",
     "este-watch": "0.0.4",
     "express": "^4.4.3",
     "panel-bridge-client": "^0.3.0",
