@@ -47,7 +47,7 @@ class PhotoshopBridge extends EventEmitter
     bridgePath = require.resolve('panel-bridge-client')
     @app.get '/_panels/bridge.js', (req, res) ->
       res.header 'Content-Type', 'application/javascript'
-      res.sendfile bridgePath
+      res.sendFile bridgePath
 
     @app.get '/_panels/ping', (req, res) ->
       res.jsonp 'pong'
