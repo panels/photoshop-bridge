@@ -49,6 +49,12 @@ class PhotoshopBridge extends EventEmitter
       res.header 'Content-Type', 'application/javascript'
       res.sendFile bridgePath
 
+    # ui-kit stylesheet
+    uiKitPath = require.resolve('panel-ui-kit')
+    @app.get '/_panels/ui-kit.css', (req, res) ->
+      res.header 'Content-Type', 'text/css'
+      res.sendFile uiKitPath
+
     @app.get '/_panels/ping', (req, res) ->
       res.jsonp 'pong'
 

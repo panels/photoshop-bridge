@@ -28,6 +28,7 @@
     "express": "^4.4.3",
     "panel-bridge-client": "^0.3.0",
     "panel-static": "^1.4.2",
+    "panel-ui-kit": "^1.0.0",
     "ws": "git+https://github.com/adobe-photoshop/ws.git#v0.4.31-no-native"
   }
 }
