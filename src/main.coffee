@@ -6,11 +6,22 @@ http = require 'http'
 panelStatic = require 'panel-static'
 color = require 'bash-color'
 bodyParser = require 'body-parser'
+path = require 'path'
 
 err = (msg) ->
   console.log ''
   console.log "#{color.red('[panel-photoshop-bridge]')} #{msg}"
   console.log ''
+
+# http://git.io/KyDO5Q
+isAbsolute = (pathToCheck='') ->
+  if process.platform is 'win32'
+      return true if pathToCheck[1] is ':' # C:\ style
+      return true if pathToCheck[0] is '\\' and pathToCheck[1] is '\\' # \\server\share style
+    else
+      return pathToCheck[0] is '/' # /usr style
+
+    false
 
 EventEmitter.prototype._emit = EventEmitter.prototype.emit
 
@@ -35,6 +46,9 @@ class PhotoshopBridge extends EventEmitter
       """
 
     # static files of panel that will be loaded in extension
+    unless isAbsolute @pkg.panel.static
+      @pkg.panel.static = path.resolve path.dirname(module.parent.filename), '..', @pkg.panel.static
+
     unless fs.existsSync(@pkg.panel.static)
       err "Static folder (#{@pkg.panel.static}) not found. Haven't you forgot to link it?"
     else
