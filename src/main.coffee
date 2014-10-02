@@ -26,7 +26,7 @@ isAbsolute = (pathToCheck='') ->
 EventEmitter.prototype._emit = EventEmitter.prototype.emit
 
 module.exports =
-class PhotoshopBridge extends EventEmitterc
+class PhotoshopBridge extends EventEmitter
   constructor: ({@pkg, @generator}={}) ->
     @express = express
     @app = @express()
