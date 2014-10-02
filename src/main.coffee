@@ -26,7 +26,7 @@ isAbsolute = (pathToCheck='') ->
 EventEmitter.prototype._emit = EventEmitter.prototype.emit
 
 module.exports =
-class PhotoshopBridge extends EventEmitter
+class PhotoshopBridge extends EventEmitterc
   constructor: ({@pkg, @generator}={}) ->
     @express = express
     @app = @express()
@@ -42,7 +42,7 @@ class PhotoshopBridge extends EventEmitter
         <h1>#{@pkg.panel.title} Photoshop Plugin</h1>
         <p>Hey, this is an internal server that powers your #{@pkg.panel.title} Photoshop Plugin.</p>
         <p>It works only when your Photoshop is running, it doesn't allow any external connections from network and it has almost zero impact on Photoshop performance. You don't really need to worry about it, it should just work.</p>
-        <p><small>If you are more of a techie, let's open <a href="/panel/?platform=chrome">/panel/</a> in your browser and see the magic :)</small></p>
+        <p><small>If you are more of a techie, let's open <a href="/panel/?platform=web">/panel/</a> in your browser and see the magic :)</small></p>
       """
 
     # static files of panel that will be loaded in extension
