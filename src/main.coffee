@@ -3,6 +3,7 @@ express = require 'express'
 WebSocketServer = require('ws').Server
 {EventEmitter} = require 'events'
 http = require 'http'
+https = require 'https'
 panelStatic = require 'panel-static'
 color = require 'bash-color'
 bodyParser = require 'body-parser'
@@ -54,7 +55,15 @@ class PhotoshopBridge extends EventEmitter
     else
       @app.use('/panel', panelStatic(@pkg.panel.static))
 
-    server = http.createServer(@app)
+    # create http or https server
+    if @pkg.panel.useSSL
+      server = https.createServer({
+        key: fs.readFileSync path.resolve __dirname, '../cert/sourcelocalhost.key'
+        cert: fs.readFileSync path.resolve __dirname, '../cert/sourcelocalhost.crt'
+      }, @app)
+    else
+      server = http.createServer(@app)
+
     server.listen(@pkg.panel.port, '127.0.0.1')
 
     # client js library to connect
