@@ -14,6 +14,9 @@ err = (msg) ->
   console.log "#{color.red('[panel-photoshop-bridge]')} #{msg}"
   console.log ''
 
+logMsg = (msg) ->
+  console.log "#{color.blue('[panel-photoshop-bridge]')} #{msg}"
+
 # http://git.io/KyDO5Q
 isAbsolute = (pathToCheck='') ->
   if process.platform is 'win32'
@@ -29,6 +32,8 @@ EventEmitter.prototype._emit = EventEmitter.prototype.emit
 module.exports =
 class PhotoshopBridge extends EventEmitter
   constructor: ({@pkg, @generator}={}) ->
+    logMsg "Initializing Panel Bridge for #{@pkg.name}@#{@pkg.version}"
+
     @express = express
     @app = @express()
 
