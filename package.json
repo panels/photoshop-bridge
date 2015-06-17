@@ -1,6 +1,6 @@
 {
   "name": "panel-photoshop-bridge",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Server library for connecting to panel bridge",
   "main": "lib/main.js",
   "scripts": {
